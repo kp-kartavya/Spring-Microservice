@@ -1,7 +1,5 @@
 package com.employee.dto;
 
-import java.util.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,9 +9,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ErrorDetails {
-	private int statusCode;
-	private Date timestamp;
-    private String errorMessage;
-    private Object errorBody;
+public class DepartmentDto {
+	private Long id;
+	private String deptName;
+	private String deptDesc;
+	private String deptCode;
 }

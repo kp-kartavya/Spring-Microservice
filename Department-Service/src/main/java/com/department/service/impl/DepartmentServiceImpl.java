@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.department.dto.DepartmentDto;
 import com.department.entity.Department;
-import com.department.exception.NoResourceFoundException;
+import com.department.exception.ResourceNotFoundException;
 import com.department.mapper.DepartmentMapper;
 import com.department.repo.DepartmentRepo;
 import com.department.service.DepartmentService;
@@ -24,10 +24,11 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 	@Override
 	public DepartmentDto getDepartmentByCode(String deptCode) {
-		Department d = dRepo.findByDeptCode(deptCode);
-		if (d == null) {
-			throw new NoResourceFoundException("Department", "Code", deptCode);
-		}
+		Department d = dRepo.findByDeptCode(deptCode)
+				.orElseThrow(() -> new ResourceNotFoundException("Department", "Department Code", deptCode));
+		;
+//		Department dept = dRepo.findById(d.getId())
+//				.orElseThrow(() -> new ResourceNotFoundException("Department", "Department Code", d.getId()));
 		return DepartmentMapper.mapToDto(d);
 	}
 

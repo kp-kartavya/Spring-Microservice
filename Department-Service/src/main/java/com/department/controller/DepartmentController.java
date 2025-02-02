@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.department.dto.DepartmentDto;
-import com.department.exception.NoResourceFoundException;
 import com.department.service.DepartmentService;
 
 @RestController
@@ -29,9 +28,6 @@ public class DepartmentController {
 	@GetMapping("getDepartmentByCode/{deptCode}")
 	public ResponseEntity<DepartmentDto> getDepartmentByCode(@PathVariable String deptCode) {
 		DepartmentDto d = dService.getDepartmentByCode(deptCode);
-		if (d == null) {
-			throw new NoResourceFoundException("Department", "departmentCode", deptCode);
-		}
 		return new ResponseEntity<>(d, HttpStatus.OK);
 	}
 }

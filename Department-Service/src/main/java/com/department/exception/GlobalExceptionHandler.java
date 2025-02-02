@@ -13,7 +13,7 @@ import com.department.dto.ErrorDetails;
 
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
-	@ExceptionHandler({ ResourceNotFoundException.class, NoResourceFoundException.class })
+	@ExceptionHandler(ResourceNotFoundException.class)
 	public ResponseEntity<ErrorDetails> handleResourceNotFoundException(ResourceNotFoundException exception,
 			WebRequest webRequest) {
 		ErrorDetails errorDetails = new ErrorDetails(HttpStatus.NOT_FOUND.value(), new Date(), exception.getMessage(),
@@ -21,11 +21,4 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
 	}
 
-//	@ExceptionHandler(NoResourceFoundException.class)
-//	public ResponseEntity<ErrorDetails> handleNoResourceFoundException(NoResourceFoundException exception,
-//			WebRequest webRequest) {
-//		ErrorDetails errorDetails = new ErrorDetails(HttpStatus.NOT_FOUND.value(), new Date(), exception.getMessage(),
-//				webRequest.getDescription(false));
-//		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
-//	}
 }
