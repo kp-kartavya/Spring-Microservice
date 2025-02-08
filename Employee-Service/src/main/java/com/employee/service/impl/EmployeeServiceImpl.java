@@ -47,8 +47,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 //		DepartmentDto d = wT.get()
 //				.uri("http://localhost:8080/v1/department/getDepartmentByCode/" + employee.getDeptCode()).retrieve()
 //				.bodyToMono(DepartmentDto.class).block();
-		
-		System.out.println("employee :: " + employee.getDeptCode());
 		DepartmentDto d = apiClient.getDepartment(employee.getDeptCode());
 		
 		ApiResponseDto api = new ApiResponseDto();
