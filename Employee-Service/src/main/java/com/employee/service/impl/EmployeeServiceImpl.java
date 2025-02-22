@@ -7,6 +7,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import com.employee.dto.ApiResponseDto;
 import com.employee.dto.DepartmentDto;
 import com.employee.dto.EmployeeDto;
+import com.employee.dto.OrganizationDto;
 import com.employee.entity.Employee;
 import com.employee.exception.ResourceNotFoundException;
 import com.employee.mapper.EmployeeMapper;
@@ -53,11 +54,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 		DepartmentDto d = wT.get()
 				.uri("http://localhost:8080/v1/department/getDepartmentByCode/" + employee.getDeptCode()).retrieve()
 				.bodyToMono(DepartmentDto.class).block();
+		OrganizationDto o = wT.get()
+				.uri("http://localhost:8080/v1/organization/getOrganizationByCode/" + employee.getOrgCode()).retrieve()
+				.bodyToMono(OrganizationDto.class).block();
 //		DepartmentDto d = apiClient.getDepartment(employee.getDeptCode());
 
 		ApiResponseDto api = new ApiResponseDto();
 		api.setEmpDto(EmployeeMapper.mapToDto(employee));
 		api.setDeptDto(d);
+		api.setOrgDto(o);
 		return api;
 	}
 
@@ -65,14 +70,20 @@ public class EmployeeServiceImpl implements EmployeeService {
 		Employee employee = eRepo.findById(employeeId)
 				.orElseThrow(() -> new ResourceNotFoundException("Employee", "ID", employeeId));
 
-		DepartmentDto d = new DepartmentDto(); 
+		DepartmentDto d = new DepartmentDto();
 		d.setDeptName("R&D Department");
 		d.setDeptCode("RD001");
 		d.setDeptDesc("Research & Development Department");
 
+		OrganizationDto o = new OrganizationDto();
+		o.setOrganizationName("ABC");
+		o.setOrganizationCode("ORG001");
+		o.setOrganizationDescription("ABC Organization");
+		
 		ApiResponseDto api = new ApiResponseDto();
 		api.setEmpDto(EmployeeMapper.mapToDto(employee));
 		api.setDeptDto(d);
+		api.setOrgDto(o);
 		return api;
 	}
 

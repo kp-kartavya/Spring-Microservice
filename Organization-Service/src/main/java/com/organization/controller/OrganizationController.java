@@ -15,7 +15,7 @@ import com.organization.service.OrganizationService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/organizations")
+@RequestMapping("/api/organization")
 @AllArgsConstructor
 public class OrganizationController {
 
